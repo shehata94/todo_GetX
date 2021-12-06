@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   get:
   get_storage:
+  flutter_local_notifications:
+  flutter_native_timezone:
 
 dev_dependencies:
   flutter_test:

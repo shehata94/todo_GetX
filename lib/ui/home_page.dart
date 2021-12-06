@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:todo_getx/services/notification_services.dart';
 import 'package:todo_getx/services/theme_services.dart';
 
 class HomePage extends StatefulWidget {
@@ -7,6 +9,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var notifyHelper;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notifyHelper = NotifyHelper();
+    notifyHelper.initializeNotification();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +41,10 @@ class _HomePageState extends State<HomePage> {
         size: 20,),
         onPressed: (){
           ThemeService().switchTheme();
+          notifyHelper.displayNotification(
+            title:"Theme Changed",
+            body:!Get.isDarkMode?"Activated Dark Theme" : "Activated Light Theme"
+          );
         },
       ),
       actions: [
