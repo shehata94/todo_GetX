@@ -27,4 +27,21 @@ class DBHelper{
     print("insert function called");
     return await db.insert(tableName, task.toJson());
   }
+
+  static Future<List<Map<String,dynamic>>> query() async{
+    return await db.rawQuery('SELECT * FROM $tableName');
+  }
+
+  static delete(Task task)
+  async{
+    await db.delete(tableName,where: "id=?",whereArgs: [task.id]);
+  }
+
+  static update(int id) async{
+   return await db.rawUpdate('''
+    UPDATE task
+    SET isCompleted = ?
+    WHERE id=?
+    ''',[1,id]);
+  }
 }

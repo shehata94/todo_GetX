@@ -194,7 +194,10 @@ class _AddTaskBarState extends State<AddTaskBar> {
   _validate() {
     if(titleController.text.isNotEmpty && noteController.text.isNotEmpty)
       {
-        _addTaskToDB().then((value) => Get.back());
+        _addTaskToDB().then((value) {
+          _taskController.getTasks();
+          Get.back();
+        } );
 
       }
 

@@ -23,7 +23,7 @@ class Task{
     this.repeat,
   });
 
-  Task.fromJason(Map<String,dynamic> json){
+  Task.fromJson(Map<String,dynamic> json){
     id = json["id"];
     title = json["title"];
     note = json["note"];
