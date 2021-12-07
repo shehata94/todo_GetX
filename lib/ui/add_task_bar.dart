@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_getx/controllers/task_controller.dart';
+import 'package:todo_getx/models/task.dart';
 import 'package:todo_getx/ui/theme.dart';
 import 'package:todo_getx/ui/widgets/button.dart';
 import 'package:todo_getx/ui/widgets/input_field.dart';
@@ -11,6 +13,7 @@ class AddTaskBar extends StatefulWidget {
 }
 
 class _AddTaskBarState extends State<AddTaskBar> {
+  final TaskController _taskController = Get.put(TaskController());
   var selectedDate = DateTime.now();
   var startTime = DateFormat("hh:mm a").format(DateTime.now());
   var endTime = DateFormat("hh:mm a").format(DateTime.now().add(Duration(hours: 1)));
@@ -190,13 +193,32 @@ class _AddTaskBarState extends State<AddTaskBar> {
 
   _validate() {
     if(titleController.text.isNotEmpty && noteController.text.isNotEmpty)
-      Get.back();
+      {
+        _addTaskToDB().then((value) => Get.back());
+
+      }
+
     else if(titleController.text.isEmpty || noteController.text.isEmpty)
       Get.snackbar("Required", "All fields are required !",
       snackPosition: SnackPosition.BOTTOM,
       icon: Icon(Icons.warning_amber_outlined,),
       backgroundColor: Colors.white,
       colorText: pinkClr);
+  }
+
+  Future<void> _addTaskToDB()async{
+  int value = await _taskController.addTask(task: Task(
+      title: titleController.text,
+      note: noteController.text,
+      date: DateFormat.yMd().format(selectedDate),
+      startTime: startTime,
+      endTime: endTime,
+      remind: selectedRemind,
+      repeat: selectedRepeat,
+      color: selectedColor,
+      isCompleted: 0,
+    ));
+  print(value);
   }
   _appBar(BuildContext context) {
     return AppBar(
