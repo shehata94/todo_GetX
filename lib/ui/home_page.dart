@@ -52,24 +52,48 @@ class _HomePageState extends State<HomePage> {
         return ListView.builder(
             itemCount: taskController.taskList.length,
             itemBuilder: (context, index) {
-              return AnimationConfiguration.staggeredList(
-                position: index,
-                child: SlideAnimation(
-                  child: FadeInAnimation(
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: (){
-                            _showBottomSheet(context,taskController.taskList[index]);
+              if(taskController.taskList[index].repeat == "Daily")
+                {
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    child: SlideAnimation(
+                      child: FadeInAnimation(
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                _showBottomSheet(context,taskController.taskList[index]);
 
-                          },
-                          child: TaskTile(taskController.taskList[index]),
-                        )
-                      ],
+                              },
+                              child: TaskTile(taskController.taskList[index]),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              if(taskController.taskList[index].date == DateFormat.yMd().format(selectedDate)){
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              _showBottomSheet(context,taskController.taskList[index]);
+
+                            },
+                            child: TaskTile(taskController.taskList[index]),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
+                );
+              }
+              return Container();
             });
       }));
   _addDateBar() => Container(
@@ -91,7 +115,10 @@ class _HomePageState extends State<HomePage> {
             textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),
           ),
           onDateChange: (date) {
-            selectedDate = date;
+            setState(() {
+              selectedDate = date;
+            });
+
           },
         ),
       );
