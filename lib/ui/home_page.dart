@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_getx/services/notification_services.dart';
 import 'package:todo_getx/services/theme_services.dart';
+import 'package:todo_getx/ui/add_task_bar.dart';
 import 'package:todo_getx/ui/theme.dart';
 import 'package:todo_getx/ui/widgets/button.dart';
 
@@ -92,7 +93,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         MyButton(
-          label: "+ Add Task",onTap:(){},
+          label: "+ Add Task",onTap:(){
+            Get.to(()=>AddTaskBar());
+            },
         )
       ],
 
