@@ -7,8 +7,9 @@ class MyInputField extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
   final Widget widget;
+  final String validationMessage;
 
-  const MyInputField({Key key, @required this.title,@required this.hint, this.controller, this.widget}) : super(key: key);
+  const MyInputField({Key key, @required this.title,@required this.hint, this.controller, this.widget, this.validationMessage}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,6 +35,9 @@ class MyInputField extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(child: TextFormField(
+                  validator: (String value){
+                      return value.isEmpty? validationMessage:null;
+                  },
                   autofocus: false,
                   cursorColor: Get.isDarkMode?Colors.grey[100]:Colors.grey[700],
                   controller: controller,
