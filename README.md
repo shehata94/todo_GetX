@@ -8,6 +8,9 @@
 
 <img src="https://user-images.githubusercontent.com/92920178/145200403-e7afb185-bd60-472f-9cc6-0517829dbd17.gif" alt='' border=”0” style=”display:block;” height="500"  align='right'/>
 
+
+<br>
+
 # Todo tasks with GetX package
 
 This project is a practice to learn how to use Getx state mangement, inject dependencies, and rout mangement
